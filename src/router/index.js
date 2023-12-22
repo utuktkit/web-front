@@ -14,7 +14,9 @@ import cancmtmg from '@/views/canadmin/canCmtmg.vue'
 import cancptmg from '@/views/canadmin/canCptmg.vue'
 import useradmin from '@/views/tchstu/userAdmin.vue'
 import userhome from '@/views/tchstu/userHome.vue'
-
+import userbrocan from '@/views/tchstu/userBrocan.vue'
+import usercommity from '@/views/tchstu/userCommity.vue'
+import usermessage from '@/views/tchstu/userMessage.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -43,7 +45,7 @@ export default new Router({
       ]
     },
     {
-      path:'/',
+      path:'/canadmin',
       component:canadmin,
       children:[
         {
@@ -65,14 +67,25 @@ export default new Router({
       ]
     },
     {
-      path:'/useradmin',
+      path:'/',
       component:useradmin,
       children:[
         {
           path:'/userhome',
           component:userhome
-        }
-      
+        },
+        {
+          path:'/userbrocan',
+          component:userbrocan
+        },
+        {
+          path:'/usercommity',
+          component:usercommity
+        },
+        {
+          path:'/usermessage',
+          component:usermessage
+        },
       ]
     },
   ]

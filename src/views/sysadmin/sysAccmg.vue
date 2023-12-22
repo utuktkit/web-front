@@ -1,5 +1,5 @@
-
 <template>
+    <!-- 账号管理 -->
     <div class="container">
      <div class="title">
       <span class="el-icon-s-promotion"></span><span>账号列表</span>
@@ -20,11 +20,6 @@
         prop="name"
         label="用户名"
         width="150">
-      </el-table-column>
-      <el-table-column
-        prop="password"
-        label="密码"
-        width="200">
       </el-table-column>
       <el-table-column
         prop="phone"

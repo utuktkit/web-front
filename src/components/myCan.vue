@@ -1,4 +1,5 @@
 <template>
+    <!-- 食堂管理员查看自己食堂 -->
     <el-container>
   <el-aside width="300px">
     <el-image

@@ -1,4 +1,5 @@
 <template>
+  <!-- 系统管理员首页 -->
 <el-container>
   <el-aside width="200px">
     <el-menu

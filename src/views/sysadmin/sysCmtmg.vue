@@ -1,5 +1,5 @@
 <template>
-    <!-- 评价管理 -->
+    <!-- 系统管理员评价管理 -->
       <div class="container">
        <div class="title">
         <span class="el-icon-s-promotion"></span><span>评价列表</span>

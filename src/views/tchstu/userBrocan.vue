@@ -1,0 +1,40 @@
+<template>
+    <!-- 用户浏览餐厅简介 -->
+    <el-container style="border: 1px solid #eee">
+        <el-header class="title">
+        <div>
+          <span class="el-icon-s-promotion"></span><span>美味食堂</span>
+        </div>
+        </el-header>
+          <el-main>
+            <stucan></stucan>
+          </el-main>
+        </el-container>
+</template>
+    
+    <script>
+    import stucan from "@/components/stuCan.vue"
+    export default {
+        data() {
+          return {
+            
+          }
+        },
+        components:{
+            stucan
+        }
+       
+    }
+    </script>
+    
+    <style>
+      .el-descriptions-item{
+          display: block;
+          font-size: large;
+        }
+      .title{
+          font-size: 30px;
+          font-weight: 500;
+      }
+    
+    </style>

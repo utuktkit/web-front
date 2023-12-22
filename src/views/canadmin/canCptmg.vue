@@ -79,5 +79,4 @@
         margin-top: 50px;
         width: 400px;
     }
-    
   </style>

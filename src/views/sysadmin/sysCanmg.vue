@@ -1,4 +1,5 @@
 <template>
+  <!-- 餐厅管理 -->
     <div class="container">
      <div class="title">
       <span class="el-icon-s-promotion"></span><span>食堂列表</span>
