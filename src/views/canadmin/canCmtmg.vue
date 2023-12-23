@@ -80,7 +80,7 @@
         font-weight: 500;
     }
     .search{
-        margin-left: 800px;
+        margin-left: 1000px;
         margin-top: 50px;
         width: 400px;
     }

@@ -12,11 +12,13 @@ import canhome from '@/views/canadmin/canHome.vue'
 import mycanteen from '@/views/canadmin/myCanteen.vue'
 import cancmtmg from '@/views/canadmin/canCmtmg.vue'
 import cancptmg from '@/views/canadmin/canCptmg.vue'
+import canmanager from '@/views/canadmin/canManager.vue'
 import useradmin from '@/views/tchstu/userAdmin.vue'
 import userhome from '@/views/tchstu/userHome.vue'
 import userbrocan from '@/views/tchstu/userBrocan.vue'
 import usercommity from '@/views/tchstu/userCommity.vue'
 import usermessage from '@/views/tchstu/userMessage.vue'
+import usercanteen from '@/views/tchstu/userCanteen.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -63,11 +65,15 @@ export default new Router({
         {
           path:'/cancptmg',
           component:cancptmg
+        },
+        {
+          path:'/canmanager',
+          component:canmanager
         }
       ]
     },
     {
-      path:'/',
+      path:'/useradmin',
       component:useradmin,
       children:[
         {
@@ -85,6 +91,10 @@ export default new Router({
         {
           path:'/usermessage',
           component:usermessage
+        },
+        {
+          path:'/usercanteen',
+          component:usercanteen
         },
       ]
     },

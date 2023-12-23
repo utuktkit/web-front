@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "22227220",
+      "name": "燃脂",
+      "font_class": "daochu1024-07",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    }
+  ]
+}

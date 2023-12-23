@@ -2,7 +2,7 @@
   <!-- 餐厅管理员首页 -->
   <el-container>
     <el-aside width="200px">
-      <el-menu style="background-color: rgb(122, 198, 198);" default-active="2" class="el-menu-vertical-demo"
+      <el-menu style="background-color: rgb(188, 206, 206);" default-active="2" class="el-menu-vertical-demo"
         @select="handleMenuSelect">
         <el-menu-item index="1">一食堂</el-menu-item>
         <el-menu-item index="2">二食堂</el-menu-item>

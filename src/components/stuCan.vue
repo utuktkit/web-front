@@ -7,10 +7,11 @@
     <el-main>
       <el-descriptions class="custom-descriptions">
         <el-descriptions-item label="餐厅名">一食堂</el-descriptions-item>
+        <el-descriptions-item label="地址">南校</el-descriptions-item>
         <el-descriptions-item label="营业时间">8:00-20:00</el-descriptions-item>
         <el-descriptions-item label="简介">简介</el-descriptions-item>
       </el-descriptions>
-      <el-link type="primary" style="font-size: 40px;">逛好菜</el-link>
+      <el-link type="primary" style="font-size: 40px;"><router-link to="/usercanteen">逛好菜</router-link></el-link>
       <el-button type="text" @click="open" class="right-align" style="color: red;">投诉食堂</el-button>
     </el-main>
 
@@ -51,7 +52,7 @@ export default {
 .el-descriptions-item {
   background-color: antiquewhite;
   display: block;
-  font-size: large;
+  font-size: 15px;
 }
 
 .right-align {

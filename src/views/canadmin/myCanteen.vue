@@ -6,7 +6,6 @@
       <span class="el-icon-s-promotion"></span><span>我的食堂</span>
     </div>
     </el-header>
-    
       <el-main>
         <mycan></mycan>
       </el-main>

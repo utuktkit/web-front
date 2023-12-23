@@ -3,7 +3,7 @@
 <el-container>
   <el-aside width="200px">
     <el-menu
-    style="background-color: rgb(122, 198, 198);"
+    style="background-color: rgb(188, 206, 206);"
       default-active="2"
       class="el-menu-vertical-demo"
       @select="handleMenuSelect">
