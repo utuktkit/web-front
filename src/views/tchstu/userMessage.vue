@@ -1,4 +1,5 @@
 <template>
+    <!-- 用户聊天界面，应该也用不到 -->
     <el-container>
         <msgleftbar></msgleftbar>
         <el-main>

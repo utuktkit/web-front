@@ -24,6 +24,10 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path:'/',
+      component:login,
+    },
+    {
       path: '/sysadmin',
       name: 'sysadmin',
       component: sysadmin,
@@ -43,7 +47,7 @@ export default new Router({
         {
           path:'/syscmtmg',
           component:syscmtmg
-        }
+        },
       ]
     },
     {

@@ -1,5 +1,6 @@
 <template>
-    <el-container>
+    <!-- 食堂管理员点进自己的食堂之后的界面，可以加菜，修改删除，查找 -->
+    <el-container style="height: 1000px;">
         <el-header style="height: 100px;">
             <el-image style="width: 100%; height: 100px" :src="url" :fit="fit"></el-image>
             <div class="canteenname">一食堂</div>
@@ -35,7 +36,7 @@
                 <div class="search">
                     <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
                     <span><el-button>查询</el-button></span>
-                    <span><el-button>清空</el-button></span>
+                    <span><el-button @click="doClear">清空</el-button></span>
                 </div>
             </div>
 
@@ -66,6 +67,9 @@ export default {
         dish
     },
     methods: {
+        doClear(){
+            this.input=''
+        },
         handleSuccess(response, file, fileList) {
             // 处理上传成功的回调
             // 在这里可以将返回的图片地址保存到fileList中

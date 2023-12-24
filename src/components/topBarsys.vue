@@ -16,7 +16,7 @@
       <el-menu-item index="3"><router-link to="/syscanmg">食堂管理</router-link></el-menu-item>
       <el-menu-item index="4"><router-link to="/sysaccmg">账号管理</router-link></el-menu-item>
       <el-menu-item index="5"><router-link to="/syscmtmg">评价管理</router-link></el-menu-item>
-      <el-menu-item index="6" class="right-align"><el-avatar :size="50" :src="circleUrl"></el-avatar></el-menu-item>
+      <el-menu-item index="6" class="right-align"><el-avatar :size="50" class="iconfont icon-guanliyuan" style="font-size: 30px;color: rgb(134, 134, 73);"></el-avatar></el-menu-item>
    </el-menu> 
 </div>
    

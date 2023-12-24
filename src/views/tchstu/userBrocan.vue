@@ -1,6 +1,6 @@
 <template>
     <!-- 用户浏览餐厅简介 -->
-    <el-container style="border: 1px solid #eee">
+    <el-container style="height: 1000px;">
         <el-header class="title">
         <div>
           <span class="el-icon-s-promotion"></span><span>美味食堂</span>

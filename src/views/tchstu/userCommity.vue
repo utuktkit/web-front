@@ -1,13 +1,13 @@
 <template>
   <!-- 用户交流社区，不相干，做个空架子 -->
-  <div class="container">
+  <div class="container" style="height: 1000px;">
     <div class="title">
       <span class="el-icon-s-promotion"></span><span>交流社区</span>
     </div>
     <div class="search">
       <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
       <span><el-button>查询</el-button></span>
-      <span><el-button>清空</el-button></span>
+      <span><el-button @click="doClear">清空</el-button></span>
     </div>
     <div>
       <articleVue></articleVue>
@@ -24,12 +24,10 @@ export default {
     }
   },
   methods: {
-    handleBrowse(index, row) {
-      console.log(index, row);
+    doClear(){
+      this.input=''
     },
-    handleComment(index, row) {
-      console.log(index, row);
-    }
+
   },
   components: {
     articleVue

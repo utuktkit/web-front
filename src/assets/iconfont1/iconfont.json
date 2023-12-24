@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2006741",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "3546278",
+      "name": "厨师",
+      "font_class": "chushi",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "24732462",
+      "name": "管理员",
+      "font_class": "guanliyuan",
+      "unicode": "eca6",
+      "unicode_decimal": 60582
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 <template>
+    <!-- 用户聊天界面的左边框，包含聊天的用户，也用不到 -->
     <el-aside width="150px">
         <el-menu style="background-color: rgb(188, 206, 206);" default-active="2" class="el-menu-vertical-demo"
             @select="handleMenuSelect">

@@ -1,9 +1,10 @@
 <template>
+    <!-- 用户的聊天界面，应该用不到，做个样子 -->
     <div class="chatroom">
         <div class="chattitle">
             <h2>用户</h2>
         </div>
-        <div class="chatmain" style="border: 2px solid #dcc5c5;height: 300px;">
+        <div class="chatmain" style="border: 2px solid #dcc5c5;height: 400px;">
         </div>
         <div class="toolbar" style="height: 40px;background-color: rgb(154, 145, 145);">
             <i class="el-icon-picture-outline" style="font-size: 30px;"></i>

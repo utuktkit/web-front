@@ -17,7 +17,7 @@
         <el-menu-item index="4"><router-link to="/usercommity">交流社区</router-link></el-menu-item>
         <el-badge :value="3" class="item">
         <el-menu-item index="5"><router-link to="/usermessage">消息管理</router-link></el-menu-item></el-badge>
-        <el-menu-item index="6" class="right-align"><el-avatar :size="50" :src="circleUrl"></el-avatar></el-menu-item>
+        <el-menu-item index="6" class="right-align"><el-avatar :size="50" class="iconfont icon-yonghu" style="font-size: 30px;color: rgb(134, 134, 73);"></el-avatar></el-menu-item>
      </el-menu> 
   </div>
      

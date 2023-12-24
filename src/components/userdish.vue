@@ -1,4 +1,5 @@
 <template>
+    <!-- 用户看到的菜品信息，可以评分 -->
     <div class="dish">
         <el-image style="width: 300px; height: 200px" :src="url" :fit="fit"></el-image>
         <div class="dishname">脆皮鸡饭
