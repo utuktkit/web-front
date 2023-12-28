@@ -10,12 +10,12 @@ export const userIdStore = defineStore(
             userId.value = newUserId;
         }
 
-        const removUserId = () => {
+        const removeUserId = () => {
             userId.value = '';
         }
 
         return {
-            userId, setUserId, removUserId
+            userId, setUserId, removeUserId
         }
     },
     {

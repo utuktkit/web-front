@@ -56,6 +56,7 @@
 import { useTokenStore } from "@/store/token.js";
 import { useTypeStore } from "@/store/type.js";
 import { userIdStore } from "@/store/userId.js";
+import { canteenIdStore } from "@/store/canteenId.js"
 import { requestRegister , requestLogin} from '@/api/user.js';
 import qs from 'qs';
 
@@ -98,7 +99,7 @@ export default {
       const idStore = userIdStore();
       const tokenStore = useTokenStore();
       const typeStore = useTypeStore();
-
+      const canteenStore = canteenIdStore();
       let params = qs.stringify({ "username": this.form.username, "password": this.form.password });
       this.form.type = this.register.type
       // console.log(params)
@@ -108,9 +109,11 @@ export default {
       tokenStore.setToken(this.response.data.token);
       typeStore.setType(this.response.data.type);
       idStore.setUserId(this.response.data.userId);
+      canteenStore.setCanteenId(this.response.data.canteenId);
       // alert(tokenStore.token);
       // alert(typeStore.type);
       // alert(idStore.userId);
+      // alert(canteenStore.canteenId);
       this.form.type = typeStore.type;
       if( this.form.type == 1  ){
         this.$router.push('/userhome')

@@ -6,12 +6,12 @@
     </el-aside>
     <el-main>
       <el-descriptions class="custom-descriptions">
-        <el-descriptions-item label="餐厅名">{{ canbrief.name }}</el-descriptions-item>
-        <el-descriptions-item label="地址">{{ canbrief.address }}</el-descriptions-item>
-        <el-descriptions-item label="营业时间">{{ canbrief.time }}</el-descriptions-item>
+        <el-descriptions-item label="餐厅名">{{ canteen.name }}</el-descriptions-item>
+        <el-descriptions-item label="地址">{{ canteen.address }}</el-descriptions-item>
+        <el-descriptions-item label="营业时间">8:00-20:00</el-descriptions-item>
       </el-descriptions>
-      <el-link type="primary" style="font-size: 30px;"><router-link to="/canmanager">管理餐厅</router-link></el-link>
-      <el-button type="danger" class="changebtn" plain @click="dialogFormVisible = true">修改信息</el-button>
+      <el-link type="primary" style="font-size: 30px;"  @click="goSwork">管理餐厅</el-link>
+      <el-button type="danger" class="changebtn" plain @click="update()">修改信息</el-button>
       <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
         <el-form :model="canbrief">
           <el-form-item label="餐厅名" :label-width="formLabelWidth">
@@ -19,9 +19,6 @@
           </el-form-item>
           <el-form-item label="地址" :label-width="formLabelWidth">
             <el-input v-model="canbrief.address" autocomplete="off" placeholder="请输入"></el-input>
-          </el-form-item>
-          <el-form-item label="营业时间" :label-width="formLabelWidth">
-            <el-input v-model="canbrief.time" autocomplete="off" placeholder="请输入"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -34,23 +31,59 @@
 </template>
 
 <script>
+import { getCanteenByAdminId } from "@/api/canteenAdmin"
+import { userIdStore } from "@/store/userId.js";
+import { requestUpdateCanteen } from '@/api/canteen.js';
+import { ref } from 'vue';
 export default {
   data() {
     return {
+      canteen: {},
       dialogFormVisible: false,
       canbrief: {
-        name: '一食堂',
-        address:'南校',
-        time: '8:00-22:00',
-        brief: '这是简介'
+        name: '',
+        address: '',
+        time: '',
       },
       fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
       url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
     }
   },
+  mounted() {
+    this.getCanteen();
+  },
   methods: {
-    changeIntro() {
+    async getCanteen() {
+      const idStore = userIdStore();
+      const adminId = idStore.userId;
+
+      let data = await getCanteenByAdminId(adminId);
+      this.canteen = data.data;
+      console.log(this.canteen)
+    },
+    async update() {
+
+      this.dialogFormVisible = true;
+      this.canbrief.name = this.canteen.name;
+      this.canbrief.address = this.canteen.address;
+
+
+    },
+    async changeIntro() {
+      const newPhone = ref();
+      const params = { canteenId: this.canteen.canteenId, name: this.canbrief.name, address: this.canbrief.address, phone: newPhone.value };
+      let data = await requestUpdateCanteen(params);
+      if (data.code === 0) {
+          location.reload();
+        }
       this.dialogFormVisible = false
+    },
+    goSwork() {
+      
+      this.$router.push({
+        path: '/canmanager',
+        query: { canteenName: this.canteen.name}
+      });
     }
   }
 }
@@ -62,7 +95,8 @@ export default {
   display: block;
   font-size: large;
 }
-.changebtn{
+
+.changebtn {
   float: right;
 }
 </style>

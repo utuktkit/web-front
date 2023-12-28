@@ -3,7 +3,7 @@
     <el-container style="height: 1000px;">
         <el-header style="height: 100px;">
             <el-image style="width: 100%; height: 100px" :src="url" :fit="fit"></el-image>
-            <div class="canteenname">一食堂</div>
+            <div class="canteenname">{{ this.canteenName }}</div>
         </el-header>
         <el-main>
             <div class="container">
@@ -12,14 +12,11 @@
                 </div>
                 <div class="search">
                     <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
-                    <span><el-button>查询</el-button></span>
-                    <span><el-button @click="doClear">清空</el-button></span>
+                    <span><el-button @click="search()">查询</el-button></span>
+                    <span><el-button @click="input = ''">清空</el-button></span>
                 </div>
             </div>
-            <userdish 
-            v-for="dish in dishList" 
-            :key="dish.dishId" 
-            :dish = "dish">
+            <userdish v-for="dish in dishList" :key="dish.dishId" :dish="dish" style="display: inline-block;margin-left: 20px;">
             </userdish>
             <!-- <userdish></userdish> -->
         </el-main>
@@ -28,22 +25,23 @@
 
 <script>
 import userdish from '@/components/userdish.vue'
-import { requestListDish  } from '@/api/dish.js';
+import { requestListDish } from '@/api/dish.js';
 import { ref } from 'vue';
 export default {
     data() {
         return {
             fileList: [],
             dialogFormVisible: false,
-            canteenId:'',
-            dishList:[],
+            canteenId: '',
+            canteenName: '',
+            dishList: [],
             dish: {
                 dishId: '',
                 name: '',
                 price: '',
                 image: ''
             },
-            fit:'fill',
+            fit: 'fill',
             input: '',
             fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
             url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
@@ -52,24 +50,29 @@ export default {
     components: {
         userdish
     },
-    methods:{
-        doClear(){
-            this.input=''
+    methods: {
+        search() {
+            this.listDish(this.input);
         },
-        async listDish() {
-            const searchName = ref();
-            const searchCanteenId = ref();
+        doClear() {
+            this.input = ''
+        },
+        async listDish(name) {
+            const searchName = ref(name);
+            const searchCanteenId = this.canteenId;
             const isPriceAsc = ref();
             const isRatingAsc = ref();
-        
-            let data = await requestListDish(searchName.value, searchCanteenId.value, isPriceAsc.value, isRatingAsc.value);
+
+            let data = await requestListDish(searchName.value, searchCanteenId, isPriceAsc.value, isRatingAsc.value);
             this.dishList = data.data;
-            console.log( this.dishList);
+            console.log(this.dishList);
         }
     },
     mounted() {
         this.canteenId = this.$route.query.canteenId;
+        this.canteenName = this.$route.query.canteenName;
         console.log(this.canteenId);
+        console.log(this.canteenName);
         this.listDish();
     },
 }

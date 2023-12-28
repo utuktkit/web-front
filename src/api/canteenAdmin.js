@@ -40,3 +40,13 @@ export const requestAddByCanteenName = (params) => {
     };
     return request.post('/canteenAdmin/addByCanteenName', params, config);
 }
+
+export const getCanteenByAdminId = (userId) => {
+    const tokenStore = useTokenStore();
+    return request.get('/canteenAdmin/getCanteenByAdminId', {
+        params: { userId },
+        headers: {
+            'Authorization': tokenStore.token
+        }
+    });
+}

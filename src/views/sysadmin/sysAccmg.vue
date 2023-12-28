@@ -6,8 +6,8 @@
     </div>
     <div class="search">
       <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
-      <span><el-button>查询</el-button></span>
-      <span><el-button @click="doClear">清空</el-button></span>
+      <span><el-button @click="search()">查询</el-button></span>
+      <span><el-button @click="input = ''">清空</el-button></span>
     </div>
     <div class="table">
       <el-button type="text" @click="dialogVisible = true">添加账号</el-button>
@@ -59,10 +59,6 @@
                 <el-form-item label="用户类型" :label-width="formLabelWidth">
                   <el-input v-model="newUser.type" autocomplete="off" placeholder="请输入"></el-input>
                 </el-form-item>
-                <el-form-item label="创建时间" :label-width="formLabelWidth">
-                  <el-date-picker v-model="newUser.createtime" type="datetime" placeholder="选择日期时间">
-                  </el-date-picker>
-                </el-form-item>
               </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -70,7 +66,7 @@
               </div>
             </el-dialog>
 
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+           
 
             <el-button v-if="scope.row.type === 1" size="mini" @click="adminC(scope.row)">任命食堂管理员</el-button>
             <el-dialog title="任命食堂管理员" :visible.sync="diaVisible">
@@ -103,6 +99,7 @@ export default {
       dialogVisible: false,
       dialogFormVisible: false,
       diaVisible: false,
+      input:'',
       user: {
         "userId": '',
         "name": '',
@@ -125,16 +122,8 @@ export default {
       userList: [],
       noticeList: [],
       formLabelWidth: '120px',
-      input: '',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小狮',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }]
+    
+      
     }
   },
   mounted() {
@@ -144,9 +133,7 @@ export default {
     // });
   },
   methods: {
-    doClear() {
-      this.input = ""
-    },
+  
     handleEdit(index, row) {
       console.log(index, row);
       this.newUser.name = row.username,
@@ -154,24 +141,6 @@ export default {
         this.newUser.type = row.type,
         this.newUser.createtime = row.createtime,
         this.dialogFormVisible = true
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
-      })
     },
     handleSet(index, row) {
       console.log(index, row);
@@ -209,11 +178,15 @@ export default {
     },
 
     async listUser() {
+      const name = this.input
       const listType = ref();
-
-      let data = await requestListUser(listType.value);
+      console.log(name)
+      let data = await requestListUser(name, listType.value);
       this.userList = data.data;
       console.log(this.userList)
+    },
+    search() {
+      this.listUser(this.input);
     },
     postNotice() {
       //   console.log(this.notice.title);

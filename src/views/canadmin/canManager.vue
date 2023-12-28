@@ -3,7 +3,7 @@
     <el-container style="height: 1000px;">
         <el-header style="height: 100px;">
             <el-image style="width: 100%; height: 100px" :src="url" :fit="fit"></el-image>
-            <div class="canteenname">一食堂</div>
+            <div class="canteenname">{{ this.canteenName }}</div>
         </el-header>
         <el-main>
             <div class="container">
@@ -20,14 +20,9 @@
                                     <el-input v-model="dish.price" autocomplete="off" placeholder="请输入"></el-input>
                                 </el-form-item>
                                 <el-form-item label="菜品描述" :label-width="formLabelWidth" placeholder="请输入">
-                                    <el-input
-                                        v-model="dish.description"
-                                        type="textarea"
-                                        :rows="3"
-                                        autocomplete="off"
-                                        placeholder="请输入"
-                                    ></el-input>
-                                    </el-form-item>
+                                    <el-input v-model="dish.description" type="textarea" :rows="3" autocomplete="off"
+                                        placeholder="请输入"></el-input>
+                                </el-form-item>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -38,14 +33,13 @@
                 </div>
                 <form @submit.prevent="search">
                     <div class="search">
-                        <!-- <button @click="listDish">搜索菜品</button> -->
-                        <span><el-input v-model="input" placeholder="请输入菜名" style="width: 200px;"></el-input></span>
-                        <span><el-button type="primary" native-type="submit" @click="search">查询</el-button></span>
-                        <span><el-button @click="all">显示全部</el-button></span>
+                        <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
+                        <span><el-button @click="search()">查询</el-button></span>
+                        <span><el-button @click="input = ''">清空</el-button></span>
                     </div>
                 </form>
             </div>
-            <dish v-for="mydish in dishList" :key="mydish.dishId" :mydish = "mydish" style="display: inline-block;"></dish>
+            <dish v-for="mydish in dishList" :key="mydish.dishId" :mydish="mydish" style="display: inline-block;"></dish>
             <!-- <dish></dish> -->
         </el-main>
     </el-container>
@@ -53,8 +47,9 @@
 
 <script>
 import dish from '@/components/dish.vue'
-import {requestAddDish} from '@/api/dish'
-import { requestListDish  } from '@/api/dish.js';
+import { requestAddDish } from '@/api/dish'
+import { requestListDish } from '@/api/dish.js';
+import { canteenIdStore } from "@/store/canteenId.js"
 import { ref } from 'vue';
 
 
@@ -63,13 +58,13 @@ export default {
         return {
             fileList: [],
             dialogFormVisible: false,
-            getCanteenId:'',
+            getCanteenId: '',
             dish: {
                 dishId: '',
                 canteenId: '2',
                 name: '',
                 style: '',
-                price:'',
+                price: '',
                 description: '',
             },
             mydish: {
@@ -77,13 +72,14 @@ export default {
                 canteenId: '2',
                 name: '',
                 style: '',
-                price:'',
+                price: '',
                 description: '',
             },
-            dishList:[],
-            completeDishList:[],
+            dishList: [],
+            completeDishList: [],
+            canteenName: '',
             input: '',
-            formLabelWidth:'120px',
+            formLabelWidth: '120px',
             fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
             url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
         }
@@ -91,7 +87,8 @@ export default {
     components: {
         dish
     },
-    mounted(){
+    mounted() {
+        this.canteenName = this.$route.query.canteenName;
         this.listDish();
     },
     methods: {
@@ -109,32 +106,26 @@ export default {
             console.log(this.response)
             this.dialogFormVisible = false
         },
-        search(){
-        const searchResult = [];
-        this.dishList = this.completeDishList,
-        console.log(this.teacherList);
-      
-        for (let i = 0; i < this.dishList.length; i++) {
-          const item = this.dishList[i];
-          if (item.name == this.input) {
-            searchResult.push(item);
-          }
-        }
-        this.dishList = searchResult;
-        console.log(this.teacherList);
+        search() {
+            this.listDish(this.input)
         },
-        postDish(){
+        postDish() {
             requestAddDish()
         },
-        async listDish() {
-            const searchName = ref();
-            const searchCanteenId = ref();
+        async listDish(name) {
+            const canteenStore = canteenIdStore();
+            const canteenId = canteenStore.canteenId;
+            const searchName = ref(name);
+            const searchCanteenId = ref(canteenId);
             const isPriceAsc = ref();
             const isRatingAsc = ref();
-        
+
+
             let data = await requestListDish(searchName.value, searchCanteenId.value, isPriceAsc.value, isRatingAsc.value);
             this.dishList = data.data;
+            this.completeDishList = this.dishList
             console.log(this.dishList)
+            console.log(this.completeDishList)
         }
     }
 }

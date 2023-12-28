@@ -7,7 +7,7 @@
     <div class="search">
       <span><el-input v-model="input" placeholder="请输入关键词" style="width: 200px;"></el-input></span>
       <span><el-button @click="search()">查询</el-button></span>
-      <span><el-button @click="input=''">清空</el-button></span>
+      <span><el-button @click="input = ''">清空</el-button></span>
     </div>
     <div class="table">
       <el-button type="text" @click="dialogVisible = true">添加食堂</el-button>
@@ -51,7 +51,7 @@
                 <el-form-item label="联系电话" :label-width="formLabelWidth">
                   <el-input v-model="newCanteen.phone" autocomplete="off" placeholder="请输入"></el-input>
                 </el-form-item>
-              
+
               </el-form>
               <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -67,7 +67,7 @@
 </template>
   
 <script>
-import { requestAddCanteen , requestListCanteen , requestUpdateCanteen , requestDeleteCanteen } from '@/api/canteen.js'; 
+import { requestAddCanteen, requestListCanteen, requestUpdateCanteen, requestDeleteCanteen } from '@/api/canteen.js';
 import { ref } from 'vue';
 export default {
   data() {
@@ -75,8 +75,8 @@ export default {
       dialogVisible: false,
       input: '',
       dialogFormVisible: false,
-      formLabelWidth:'120px',
-      response:'',
+      formLabelWidth: '120px',
+      response: '',
       canteen: {
         "canteenId": '',
         "name": '',
@@ -91,78 +91,71 @@ export default {
         "phone": '',
         "createTime": ''
       },
-      canteenList:[],
+      canteenList: [],
     }
   },
-  mounted(){
+  mounted() {
     this.lishCanteen();
   },
   methods: {
-    search(){
-    const searchResult = [];
-    for (let i = 0; i < this.tableData.length; i++) {
-      const item = this.tableData[i];
-      if (item.name === this.input) {
-        searchResult.push(item);
-      }
-    }
-    this.tableData = searchResult;
+    search() {
+      this.lishCanteen(this.input);
     },
     handleEdit(index, row) {
       console.log(index, row);
       this.newCanteen.name = row.name,
-      this.newCanteen.address = row.address,
-      this.newCanteen.phone = row.phone,
-      this.newCanteen.createtime = row.createtime,
-      this.dialogFormVisible = true
+        this.newCanteen.address = row.address,
+        this.newCanteen.phone = row.phone,
+        this.newCanteen.createtime = row.createtime,
+        this.dialogFormVisible = true
     },
 
     async handleDelete(row) {
-    console.log(row);
-    try {
-      await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      });
       console.log(row);
-      let data = await requestDeleteCanteen(row.canteenId);
-      this.response = data.code;
-      if (this.response === 0) {
-        location.reload();
+      try {
+        await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        });
+        console.log(row);
+        let data = await requestDeleteCanteen(row.canteenId);
+        this.response = data.code;
+        if (this.response === 0) {
+          location.reload();
+        }
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      } catch (error) {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
       }
-      this.$message({
-        type: 'success',
-        message: '删除成功!'
-      });
-    } catch (error) {
-      this.$message({
-        type: 'info',
-        message: '已取消删除'
-      });
-    }
-  },
-    async add(){
+    },
+    async add() {
       const name = this.canteen.name;
       const address = this.canteen.address;
       const phone = this.canteen.phone;
 
-    const params = { name: name, address: address, phone: phone };
-    let data = await requestAddCanteen(params);
-    this.response = data.code;
+      const params = { name: name, address: address, phone: phone };
+      let data = await requestAddCanteen(params);
+      this.response = data.code;
       if (this.response === 0) {
         location.reload();
       }
       this.dialogVisible = false
     },
-    async lishCanteen(){
-      const searchName = ref();
+    async lishCanteen(name) {
+      const searchName = ref(name);
 
       let data = await requestListCanteen(searchName.value);
       this.canteenList = data.data;
       console.log(this.canteenList)
     },
-    async update(index){
+    async update(index) {
       console.log(index);
 
       const canteenId = index;
@@ -170,15 +163,15 @@ export default {
       const newAddress = this.newCanteen.address;
       const newPhone = this.newCanteen.phone;
 
-     
-      const params = { canteenId: canteenId, name: newName ,address: newAddress, phone: newPhone };
+
+      const params = { canteenId: canteenId, name: newName, address: newAddress, phone: newPhone };
       let data = await requestUpdateCanteen(params);
       this.response = data.code;
       if (this.response === 0) {
         location.reload();
       }
       this.dialogFormVisible = false
-  },
+    },
     postNotice() {
       //   console.log(this.notice.title);
       //   console.log(this.notice.content);

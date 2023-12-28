@@ -1,7 +1,7 @@
 <template>
     <!-- 用户看到的菜品信息，可以评分 -->
     <div class="dish">
-        <el-image style="width: 300px; height: 200px" :src="url" :fit="fit"></el-image>
+        <el-image style="width: 300px; height: 200px" :src="url" :fit="fit" @click="godishComment"></el-image>
         <!-- <div class="dishname">脆皮鸡饭 -->
         <div class="dishname">{{ dish.name }}
             <span>
@@ -34,40 +34,52 @@
 import { requestAddComment } from '@/api/comment.js'
 // import { ref } from 'vue';
 export default {
-    name:'userdish',// eslint-disable-line
+    name: 'userdish',// eslint-disable-line
     props: {
-      dish: {
-        type: Object,
-        required: true,
-      },
+        dish: {
+            type: Object,
+            required: true,
+        },
     },
     mounted() {
         console.log(this.dish);
     },
     data() {
         return {
-            value1:'',
+            value1: '',
             value2: null,
             colors: ['#99A9BF', '#F7BA2A', '#FF9900'],  // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
             dialogFormVisible: false,
-            formLabelWidth:'120px',
-            response:'',
+            formLabelWidth: '120px',
+            response: '',
             fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
             url: 'https://i02piccdn.sogoucdn.com/16a536e26f6fa898'
         }
     },
-    methods:{
-        async add () {
-        console.log(this.dish);
-        const addDishId = this.dish.dishId;
-        const addScore = this.value2*2;
-        const addContent = this.value1;
+    methods: {
+        godishComment() {
+            this.$router.push({
+                path: '/userdishcomment',
+                query: {
+                    dishId: this.dish.dishId,
+                    dishname: this.dish.name,
+                    price: this.dish.price
+                }
 
-        const params = { dishId: addDishId, score: addScore, content: addContent };
-        let data = await requestAddComment(params);
-        this.response = data;
-        
-        this.dialogFormVisible = false
+            })
+
+        },
+        async add() {
+            console.log(this.dish);
+            const addDishId = this.dish.dishId;
+            const addScore = this.value2 * 2;
+            const addContent = this.value1;
+
+            const params = { dishId: addDishId, score: addScore, content: addContent };
+            let data = await requestAddComment(params);
+            this.response = data;
+
+            this.dialogFormVisible = false
         }
     }
 }

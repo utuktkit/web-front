@@ -18,6 +18,7 @@ import userbrocan from '@/views/tchstu/userBrocan.vue'
 import usercommity from '@/views/tchstu/userCommity.vue'
 import usermessage from '@/views/tchstu/userMessage.vue'
 import usercanteen from '@/views/tchstu/userCanteen.vue'
+import userdishcomment from '@/views/tchstu/userdishComment.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -99,6 +100,10 @@ export default new Router({
           path:'/usercanteen',
           component:usercanteen
         },
+        {
+          path:'/userdishcomment',
+          component:userdishcomment
+        }
       ]
     },
   ]

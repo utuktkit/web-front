@@ -39,10 +39,10 @@ export const requestInfo = (userId) => {
     });
 }
 
-export const requestListUser = (type) => {
+export const requestListUser = (name,type) => {
     const tokenStore = useTokenStore();
     return request.get('/user/listUser', {
-        params: { type },
+        params: { name,type },
         headers: {
             'Authorization': tokenStore.token
         }
